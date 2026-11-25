@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #FF9800;
+  --secondary: #FFC107;
+  --bg-light: #FFF8E1;
+  --text-dark: #3E2723;
+  --success: #4CAF50;
+  --gray: #9E9E9E;
+  --border-accent: #FFE0B2;
+}
+
+body {
+  background-color: #FFF8E1;
+  color: #3E2723;
+  font-family: 'Hind Siliguri', 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.dark body {
+  background-color: #121212;
+  color: #F5F5F5;
+}
+
+/* Vibrant Palette Custom Utility Classes */
+.vibrant-gradient {
+  background: linear-gradient(135deg, #FF9800, #FFC107);
+}
+
+.vibrant-card-shadow {
+  box-shadow: 0 10px 25px rgba(255, 152, 0, 0.15);
+}
+
+.vibrant-border {
+  border: 2px solid #FFC107;
+}
+
+.vibrant-grid-border {
+  border: 1px solid #FFE0B2;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Mango 🥭 - Telegram Earning Mini App</title>
+    <!-- Polyfills & Patch Guards for 3rd Party Ads & Telegram WebApp -->
+    <script>
+      (function() {
+        // Safe fetch property patch to handle window.fetch assignment in restricted getter environments
+        try {
+          var _fetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _fetch; },
+            set: function(val) { _fetch = val; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.warn('Fetch property patch guard:', e);
+        }
+      })();
+    </script>
+    <!-- Telegram WebApp JS -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      (function() {
+        // LocalStorage fallback implementation for CloudStorage
+        var localStorageCloudStorage = {
+          setItem: function(key, value, callback) {
+            try { localStorage.setItem('tg_cs_' + key, value); } catch(e) {}
+            if (typeof callback === 'function') callback(null, true);
+          },
+          getItem: function(key, callback) {
+            var val = null;
+            try { val = localStorage.getItem('tg_cs_' + key); } catch(e) {}
+            if (typeof callback === 'function') callback(null, val);
+          },
+          getItems: function(keys, callback) {
+            var res = {};
+            try {
+              if (Array.isArray(keys)) {
+                keys.forEach(function(k) { res[k] = localStorage.getItem('tg_cs_' + k); });
+              }
+            } catch(e) {}
+            if (typeof callback === 'function') callback(null, res);
+          },
+          removeItem: function(key, callback) {
+            try { localStorage.removeItem('tg_cs_' + key); } catch(e) {}
+            if (typeof callback === 'function') callback(null, true);
+          },
+          removeItems: function(keys, callback) {
+            try {
+              if (Array.isArray(keys)) {
+                keys.forEach(function(k) { localStorage.removeItem('tg_cs_' + k); });
+              }
+            } catch(e) {}
+            if (typeof callback === 'function') callback(null, true);
+          },
+          getKeys: function(callback) {
+            var keys = [];
+            try {
+              for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (k && k.indexOf('tg_cs_') === 0) keys.push(k.substring(6));
+              }
+            } catch(e) {}
+            if (typeof callback === 'function') callback(null, keys);
+          }
+        };
+
+        var fallbackWebApp = {
+          initData: '',
+          initDataUnsafe: {},
+          version: '9.9',
+          platform: 'unknown',
+          colorScheme: 'light',
+          themeParams: {},
+          isExpanded: true,
+          viewportHeight: 600,
+          viewportStableHeight: 600,
+          isVersionAtLeast: function() { return true; },
+          headerColor: '#FF9800',
+          backgroundColor: '#FFF8E1',
+          BackButton: { isVisible: false, show: function(){}, hide: function(){}, onClick: function(){}, offClick: function(){} },
+          MainButton: { text: '', color: '#FF9800', textColor: '#FFFFFF', isVisible: false, isActive: true, isProgressVisible: false, show: function(){}, hide: function(){}, enable: function(){}, disable: function(){}, showProgress: function(){}, hideProgress: function(){}, onClick: function(){}, offClick: function(){}, setText: function(){} },
+          HapticFeedback: { impactOccurred: function(){}, notificationOccurred: function(){}, selectionChanged: function(){} },
+          CloudStorage: localStorageCloudStorage,
+          ready: function(){},
+          expand: function(){},
+          close: function(){},
+          sendData: function(){},
+          openLink: function(url){ window.open(url, '_blank'); },
+          openTelegramLink: function(url){ window.open(url, '_blank'); },
+          showAlert: function(msg, cb){ alert(msg); if(cb) cb(); },
+          showConfirm: function(msg, cb){ var res = confirm(msg); if(cb) cb(res); }
+        };
+
+        function patchTelegram() {
+          if (!window.Telegram) {
+            window.Telegram = { WebApp: fallbackWebApp };
+            return;
+          }
+          if (!window.Telegram.WebApp) {
+            window.Telegram.WebApp = fallbackWebApp;
+            return;
+          }
+
+          var tg = window.Telegram.WebApp;
+
+          try { tg.version = '9.9'; } catch (e) {}
+          try { tg.isVersionAtLeast = function() { return true; }; } catch (e) {}
+
+          if (tg.CloudStorage && typeof tg.CloudStorage === 'object') {
+            for (var m in localStorageCloudStorage) {
+              try {
+                tg.CloudStorage[m] = localStorageCloudStorage[m];
+              } catch (e) {
+                try {
+                  Object.defineProperty(tg.CloudStorage, m, {
+                    value: localStorageCloudStorage[m],
+                    writable: true,
+                    configurable: true,
+                    enumerable: true
+                  });
+                } catch (e2) {}
+              }
+            }
+          } else {
+            try {
+              tg.CloudStorage = localStorageCloudStorage;
+            } catch (e) {
+              try {
+                Object.defineProperty(tg, 'CloudStorage', {
+                  get: function() { return localStorageCloudStorage; },
+                  configurable: true,
+                  enumerable: true
+                });
+              } catch (e2) {}
+            }
+          }
+        }
+
+        patchTelegram();
+      })();
+    </script>
+    <!-- Monetag SDK -->
+    <script src="//libtl.com/sdk.js" data-zone="11470108" data-sdk="show_11470108"></script>
+    <!-- Google Fonts: Hind Siliguri (Bengali) & Outfit (English Display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#FFF8E1] dark:bg-[#121212] text-gray-900 dark:text-gray-100 font-['Hind_Siliguri',sans-serif] antialiased selection:bg-amber-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

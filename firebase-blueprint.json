@@ -1,0 +1,126 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Telegram user data, earnings, level, XP, and badges",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "username": { "type": "string" },
+        "balance": { "type": "number" },
+        "referralCode": { "type": "string" },
+        "referredBy": { "type": "string" },
+        "dailyBonusStreak": { "type": "number" },
+        "lastDailyClaim": { "type": "string" },
+        "plan": { "type": "string" },
+        "planExpiry": { "type": "string" },
+        "totalEarned": { "type": "number" },
+        "tasksCompleted": { "type": "number" },
+        "xp": { "type": "number" },
+        "level": { "type": "number" },
+        "badges": { "type": "array", "items": { "type": "string" } },
+        "dailyTasksDone": { "type": "number" },
+        "lastTaskTimestamp": { "type": "number" },
+        "savingsBalance": { "type": "number" },
+        "referralTierCounts": { "type": "object" },
+        "isBanned": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "balance", "referralCode", "level", "xp"]
+    },
+    "tasks": {
+      "title": "Tasks",
+      "description": "Earning tasks including timer, visit, video, and daily missions",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "link": { "type": "string" },
+        "reward": { "type": "number" },
+        "type": { "type": "string" },
+        "duration": { "type": "number" },
+        "active": { "type": "boolean" },
+        "maxPerDay": { "type": "number" },
+        "cooldownMinutes": { "type": "number" },
+        "levelRequired": { "type": "number" },
+        "bonusMultiplier": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "reward", "type", "active"]
+    },
+    "withdrawals": {
+      "title": "Withdrawal Requests",
+      "description": "User withdrawal requests",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "method": { "type": "string" },
+        "accountNumber": { "type": "string" },
+        "amountBDT": { "type": "number" },
+        "amountUSDT": { "type": "number" },
+        "status": { "type": "string" },
+        "note": { "type": "string" },
+        "fromSavings": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "method", "accountNumber", "amountBDT", "status"]
+    },
+    "plans": {
+      "title": "Subscription Plans",
+      "description": "Membership tiers",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "validityDays": { "type": "number" },
+        "extraRewardMultiplier": { "type": "number" },
+        "freeSpinsExtra": { "type": "number" },
+        "referralCommissionBoost": { "type": "number" },
+        "levelBoost": { "type": "number" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["name", "price", "validityDays"]
+    },
+    "config": {
+      "title": "App Settings Configuration",
+      "description": "Global application configuration",
+      "type": "object",
+      "properties": {
+        "appSettings": { "type": "object" },
+        "monetagZoneId": { "type": "string" },
+        "bKashNumber": { "type": "string" },
+        "customAdScript": { "type": "string" },
+        "adminNotifications": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "transactions": {
+      "title": "Transactions",
+      "description": "Plan purchases and manual payments",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "planId": { "type": "string" },
+        "planName": { "type": "string" },
+        "amount": { "type": "number" },
+        "trxId": { "type": "string" },
+        "senderNumber": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "activityLogs": {
+      "title": "Activity Logs",
+      "description": "User actions log for admin audit",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" },
+        "timestamp": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Mango 🥭",
+  "description": "মাস্টারপিস মানের টেলিগ্রাম মিনি অ্যাপ আর্নিং প্ল্যাটফর্ম (Gamified Earning Mini App with User & Admin Panel)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
